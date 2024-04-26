@@ -6,7 +6,7 @@ Converter is a reasoning tool designed for the cloud language known as CEAML. [C
 1. [Installation](#installation)
 2. [Deploy an application](#deploy-an-application)
 3. [Terminate an application](#terminate-an-application)
-4. [Scale out an applicaiton](#8-scale-out-an-application)
+4. [Scale out an application](#scale-out-an-application)
 
 ## Installation
 Converter is packaged as a Python library, it can be installed it with the following command:
