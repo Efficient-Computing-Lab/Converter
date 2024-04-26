@@ -60,7 +60,7 @@ def selector(name):
 
 An example follows that presents way to provide inputs 3.,4.,5. and 6. The code snippet presents
 a function named deployment that retrieves the outputs of the previously mentioned selector function.
-The application version. cluster ID, external IP and GPU list are hardcoded in order to simplify the example.
+The application version, cluster ID, external IP and GPU list are hardcoded in order to simplify the example.
 ```python
 def deployment(json_base64_string, name, file_path):
     nodelist, imagelist = Parser.ReadFile(file_path)
@@ -117,7 +117,7 @@ def deployment(json_base64_string, name, file_path):
 ```
 All of the above information of course could be either provided manually of by a mechanism. It clearly depends on how developers plan to use the Converter
 
-By combining both examples mentioned above we have a complete example on how to generate the deployment files with Converter is the [DeployInterface.py](DeployInterface.py). The code is also available below as a snippet.
+By combining both examples mentioned above we have a complete example ([DeployInterface.py](DeployInterface.py)) on how to generate the deployment files with Converter. The code is also available below as a snippet.
 ```python
 import os
 import random
@@ -243,14 +243,14 @@ As it shown in the above code, the steps to generate Kubernetes or Kubevirt file
 5. Call **ActionModel.generate(nodelist, application_instance)** to generate a model that includes components and the related actions that may be performed on them. This function requires to know the list that contains all the instances of CEAML entities (nodeList) and the unique ID of the instance to be deployed (application_instance). (Optional)
 6. Call **WorkflowModel.generate(nodelist, application_instance)** to generate a model that includes worklows that include runtime adaptation actions that should be performed under certain conditions. This function requires to know the list that contains all the instances of CEAML entities (nodeList) and the unique ID of the instance to be deployed (application_instance). (Optional)
 
-In case developers want to use a conventional deployment on Kubernetes or Kubevirt they should just perform the required steps. ALthough, in case they have generated a distributed orchestrator that operates above clusters they could potentially use also the steps that are marked as optional to assist the orchestration process.
+In case developers want to use a conventional deployment on Kubernetes or Kubevirt they should just perform the required steps. Although, in case they have generated a distributed orchestrator that operates above clusters they could potentially use also the steps that are marked as optional to assist the orchestration process.
 
 
 All the outputs of methods are stored in memory, and developers have the freedom to either save them as files or use them as they are. To apply the outputs, developers should utilize the kubectl apply -f command or its equivalent in the Kubernetes API to the respective cluster master.
 
 ## Terminate an application
 To undeploy an application described in CEAML in Kubernetes or Kubevirt developers should have the following required inputs:
-1. The name of the running instance, for example acc-uc2orbk-0-0-4-00036-gameserver-7reio-min1 (Required)
+1. The name of the running instance, for example acc-uc2orbk-0-0-4-00036-gameserver-7reio-min1
 2. Provide the path of the model written in CEAML
 
 All of the above information of course could be either provided manually of by a mechanism. It clearly depends on how developers plan to use the Converter
@@ -276,7 +276,7 @@ All the outputs of methods are stored in memory, and developers have the freedom
 ## Scale out an application
 
 Scaling out an application described in CEAML in Kubernetes or Kubevirt involves deploying a second instance of the application component with the same running instance ID to a separate cluster. This scenario is exclusive to distributed orchestrators. Developers should have the following required inputs:
-1. The name of the running instance, for example acc-uc2orbk-0-0-4-00036-gameserver-7reio-min1 (Required)
+1. The name of the running instance, for example acc-uc2orbk-0-0-4-00036-gameserver-7reio-min1
 2. Provide the path of the model written in CEAML
 
 ```python
