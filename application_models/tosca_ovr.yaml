@@ -1,0 +1,255 @@
+tosca_definitions_version: tosca_simple_yaml_1_2
+
+description: Application model of OVR Use Case
+
+
+imports:
+  - definitions/custom_types.yaml
+
+topology_template:
+  inputs:
+    ip:
+      type: string
+      description: IP of containers
+      required: false
+
+  node_templates:
+    Cloud_Framework:
+      type: ACCORDION.Cloud_Framework
+      properties:
+        application: ovr
+        deployment_phase:
+          - name: deploy
+            order: 1
+            components:
+              - component: localservice
+                type: vm
+          - name: requestSession
+            order: 2
+            components:
+              - component: relayserver
+                type: vm
+        workflows:
+          - scenario: LocalService QoS deterioration
+            target: localservice
+            condition: status == failed
+            actions:
+              - name: terminate
+                components:
+                  - component: localservice
+                    type: vm
+                order: 1
+              - name: deploy
+                components:
+                  - component: localservice
+                    type: vm
+                order: 2
+          - scenario: singleplayer LocalService latency or LocalService stops
+            target: localservice
+            condition: latency > 20ms or status == terminated
+            actions:
+              - name: terminate
+                components:
+                  - component: localservice
+                    type: vm
+                order: 1
+              - name: deploy
+                components:
+                  - component: localservice
+                    type: vm
+                order: 2
+          - scenario : multiplayer RelayServer latency
+            target: relayserver
+            condition: latency > 20ms
+            actions:
+              - name: terminate
+                components:
+                  - component: relayserver
+                    type: vm
+                order: 1
+              - name: deploy
+                components:
+                  - component: relayserver
+                    type: vm
+                order: 2
+              - name: send
+                input:
+                  - component: relayserver
+                    property: ip
+                    to: localservice
+                order: 3
+          - scenario: ls QoE degredation in singleplayer
+            target: localservice
+            condition: qoe_metric < 3
+            actions:
+              - name: migrate
+                components:
+                  - component: localservice
+                    type: vm
+                order: 1
+          - scenario: ls QoE degredation in multiplayer
+            target: localservice
+            condition: qoe_metric < 3
+            actions:
+              - name: migrate
+                components:
+                  - component: localservice
+                    type: vm
+                order: 1
+          - scenario: relayserver QoE degredation
+            target: relayserver
+            condition: qoe_metric < 3
+            actions:
+              - name: migrate
+                components:
+                  - component: relayserver
+                    type: vm
+                order: 1
+          - scenario: multiplayer LocalService latency or LocalService stops
+            target: localservice
+            condition: latency > 20ms or status == terminated
+            actions:
+              - name: terminate
+                components:
+                  - component: localservice
+                    type: vm
+                order: 1
+              - name: deploy
+                components:
+                  - component: localservice
+                    type: vm
+                order: 2
+              - name: send
+                input:
+                  - component: relayserver
+                    property: ip
+                    to: localservice
+                order: 3
+
+
+    EdgeNode1:
+      type: tosca.nodes.Compute.EdgeNode
+      properties:
+        gpu_model:
+          properties:
+            model: nvidia.com/TU117_GEFORCE_GTX_1650
+            dedicated: true
+      capabilities:
+        host:
+          properties:
+            num_cpus: 8
+            mem_size: 8 GB
+            disk_size: 20 GB
+        os:
+          properties:
+            architecture: x86_64
+            type: linux
+
+    PublicCloud:
+      type: tosca.nodes.Compute.PublicCloud
+      capabilities:
+        host:
+          properties:
+            num_cpus: 2
+            mem_size: 2 GB
+            disk_size: 35 GB
+        os:
+          properties:
+            architecture: x86_64
+            type: linux
+
+    RelayServer:
+      type: Component
+      properties:
+        registry:
+          properties:
+            image: registry.gitlab.com/relayserver:latest
+        name: relayserver
+        application: ovr
+        external_ip: true
+        daemon_set: false
+        ip: { get_input: ip }
+        deployment_unit: vm
+        flavor: win2k12-iso
+        instance: 1
+        storage_type: ephemeral
+        ports:
+          - port: 5055
+            protocol: UDP
+          - port: 5056
+            protocol: UDP
+          - port: 5058
+            protocol: UDP
+          - port: 4520
+            protocol: TCP
+          - port: 4533
+            protocol: TCP
+          - port: 4530
+            protocol: TCP
+          - port: 4531
+            protocol: TCP
+          - port: 9093
+            protocol: TCP
+          - port: 9090
+            protocol: TCP
+          - port: 9091
+            protocol: TCP
+        dependency:
+          - component: relayserver
+            property: external_ip
+      requirements:
+        - host: PublicCloud
+
+
+    LocalService:
+      type: Component
+      properties:
+        registry:
+          properties:
+            image: registry.gitlab.com/localservice:latest
+        name:  localservice
+        application: ovr
+        external_ip: true
+        daemon_set: false
+        ip: {get_input: ip}
+        deployment_unit: vm
+        flavor: win2k12-iso
+        storage_type: ephemeral
+        ports:
+          - protocol: UDP
+            port: 60001
+          - protocol: UDP
+            port: 60002
+          - protocol: UDP
+            port: 60003
+          - protocol: UDP
+            port: 60004
+          - protocol: UDP
+            port: 60005
+          - protocol: TCP
+            port: 60001
+          - protocol: TCP
+            port: 53872
+          - protocol: TCP
+            port: 3478
+          - protocol: TCP
+            port: 5349
+        dependency:
+          - component: relayserver
+            property: ip
+      requirements:
+        - host: EdgeNode1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
