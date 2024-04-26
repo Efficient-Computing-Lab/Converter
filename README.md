@@ -63,11 +63,10 @@ a function named deployment that retrieves the outputs of the previously mention
 The application version, cluster ID, external IP and GPU list are hardcoded in order to simplify the example.
 ```python
 def deployment(json_base64_string, name, file_path):
-    nodelist, imagelist = Parser.ReadFile(file_path)
+    nodelist = Parser.ReadFile(file_path)
     application_version='v5'
     # Create the namespace with a unique ID
     application_instance = ID.generate_k3s_namespace(name, application_version, randomApplicationIntanceID())
-
     # cluster that is decided through matchmaking process
     cluster = "min5"
     externalIP = "195.212.4.114"
@@ -101,19 +100,8 @@ def deployment(json_base64_string, name, file_path):
 
     # model for lifecycle manager that has actions, their order and related components
     actions_set = ActionModel.generate(nodelist, application_instance)
-
-    print(actions_set)
     # workflows for lifecycle manager
     workflows_set = WorkflowModel.generate(nodelist, application_instance)
-    print(workflows_set)
-    print(namespace_yaml)
-    print(secret_yaml)
-    print(deployment_files)
-    print(yaml.dump(deployment_files))
-    print(matchmaking_model)
-
-    print(persistent_files)
-    print(service_files)
 ```
 All of the above information of course could be either provided manually of by a mechanism. It clearly depends on how developers plan to use the Converter
 
@@ -140,7 +128,6 @@ def deployment(json_base64_string, name, file_path):
     application_version='v5'
     # Create the namespace with a unique ID
     application_instance = ID.generate_k3s_namespace(name, application_version, randomApplicationIntanceID())
-
     # cluster that is decided through matchmaking process
     cluster = "min5"
     externalIP = "195.212.4.114"
@@ -174,19 +161,8 @@ def deployment(json_base64_string, name, file_path):
 
     # model for lifecycle manager that has actions, their order and related components
     actions_set = ActionModel.generate(nodelist, application_instance)
-
-    print(actions_set)
     # workflows for lifecycle manager
     workflows_set = WorkflowModel.generate(nodelist, application_instance)
-    print(workflows_set)
-    print(namespace_yaml)
-    print(secret_yaml)
-    print(deployment_files)
-    print(yaml.dump(deployment_files))
-    print(matchmaking_model)
-
-    print(persistent_files)
-    print(service_files)
 
 # Generate a random ID to emulate the application instance ID
 def randomApplicationIntanceID():
