@@ -1,7 +1,6 @@
 from DeployInterface import selector
 from converter_package import Converter
 
-
 componentInfo = "acc-uc2orbk-0-0-4-00036-gameserver-7reio-min1"
 if 'orbk' in componentInfo:
     json_base64_string, url, name = selector('orbk')
