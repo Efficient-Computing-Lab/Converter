@@ -279,6 +279,7 @@ Scaling out an application described in CEAML in Kubernetes or Kubevirt involves
 1. The name of the running instance, for example acc-uc2orbk-0-0-4-00036-gameserver-7reio-min1
 2. Provide the path of the model written in CEAML
 
+A usage example on how to generate the deployment files to perform scale out with Converter is the [ScaleOutInterface.py](ScaleOutInterface.py). The code is also available below as a snippet.
 ```python
 from DeployInterface import selector
 from converter_package import Converter
