@@ -18,7 +18,8 @@ def deployment(json_base64_string, name, file_path):
     nodelist = Parser.ReadFile(file_path)
     application_version='v5'
     # Create the namespace with a unique ID
-    application_instance = ID.generate_k3s_namespace(name, application_version, randomApplicationIntanceID())
+    application_instance = ID.generate_k3s_namespace(name, application_version,
+                                                     randomApplicationIntanceID())
     # cluster that is decided through matchmaking process
     cluster = "min5"
     externalIP = "195.212.4.114"
@@ -47,7 +48,8 @@ def deployment(json_base64_string, name, file_path):
     secret_yaml = Converter.secret_generation(json_base64_string, application_instance)
     # gpu_model is an optional parameter
     deployment_files, persistent_files, service_files = Converter.tosca_to_k8s(nodelist,
-                                                                               application_instance, cluster,
+                                                                               application_instance,
+                                                                               cluster,
                                                                                externalIP, gpu_list)
 
     # model for lifecycle manager that has actions, their order and related components
