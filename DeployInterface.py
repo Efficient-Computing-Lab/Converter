@@ -67,7 +67,6 @@ def randomApplicationIntanceID():
 
 
 def selector(name):
-
     if name == 'plexus':
         token_name = "token_name"
         token_pass = "password"
