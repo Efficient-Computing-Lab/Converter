@@ -8,6 +8,19 @@ Converter is a reasoning tool designed for the cloud language known as CEAML. [C
 3. [Terminate an application](#terminate-an-application)
 4. [Scale out an application](#scale-out-an-application)
 
+If you use the above code for your research, please cite our paper:
+
+- [Converter: A CEAML Reasoner Python package to Streamline Orchestration Across Cloud and Edge Continuum](https://arxiv.org/abs/2407.00012v1)
+       
+      @misc{korontanis2024converterceamlreasonerpython,
+            title={Converter: A CEAML Reasoner Python package to Streamline Orchestration Across Cloud and Edge Continuum}, 
+            author={Ioannis Korontanis and Antonios Makris and Konstantinos Tserpes},
+            year={2024},
+            eprint={2407.00012},
+            archivePrefix={arXiv},
+            primaryClass={cs.DC},
+            url={https://arxiv.org/abs/2407.00012}, 
+      }
 ## Installation
 Converter is packaged as a Python library, it can be installed it with the following command:
 ```bash
