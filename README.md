@@ -11,14 +11,14 @@ Converter is a reasoning tool designed for the cloud language known as CEAML. [C
 If you use CEAML for your research. please cite our paper:
 - [Ceaml: A novel modeling language for enabling cloud and edge continuum orchestration](https://link.springer.com/article/10.1007/s10270-024-01222-9)
 
-  @article{korontanis2024ceaml,
-  title={Ceaml: A novel modeling language for enabling cloud and edge continuum orchestration},
-  author={Korontanis, Ioannis and Makris, Antonios and Tserpes, Konstantinos},
-  journal={Software and Systems Modeling},
-  pages={1--19},
-  year={2024},
-  publisher={Springer}
-}
+      @article{korontanis2024ceaml,
+        title={Ceaml: A novel modeling language for enabling cloud and edge continuum orchestration},
+        author={Korontanis, Ioannis and Makris, Antonios and Tserpes, Konstantinos},
+        journal={Software and Systems Modeling},
+        pages={1--19},
+        year={2024},
+        publisher={Springer}
+      }
 If you use the Converter for your research, please cite our paper:
 
 - [Converter: A CEAML Reasoner Python package to Streamline Orchestration Across Cloud and Edge Continuum](https://arxiv.org/abs/2407.00012v1)
