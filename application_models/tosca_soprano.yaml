@@ -29,6 +29,11 @@ topology_template:
 
     EdgeNode:
       type: tosca.nodes.Compute.EdgeNode
+      properties:
+        gpu_model:
+          properties:
+            model: nvidia.com/TU117_GEFORCE_GTX_1650
+            dedicated: true
       capabilities:
         host:
           properties:
