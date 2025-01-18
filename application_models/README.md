@@ -5,10 +5,10 @@ CEAML is an extension of [TOSCA](https://docs.oasis-open.org/tosca/TOSCA-Simple-
 1. [tosca.nodes.Compute.EdgeNode](#toscanodescomputeedgenode)
 2. [tosca.nodes.Compute.PublicCloud](#toscanodescomputepubliccloud)
 3. [Component](#component)
-4. [ACCORDION.Cloud_Framework](#accordioncloud_framework)
+4. [Platform](#platform)
 5. [Complete Examples](#complete-examples)
 
-In a model writen in CEAML it is required to have one or more instances for Component and on instance of ACCORDION.Cloud_Framework. It depends on scenario of the description if the model would contain none, one or more instances of tosca.nodes.Compute.EdgeNode or tosca.nodes.Compute.PublicCloud. 
+In a model writen in CEAML it is required to have one or more instances for Component and on instance of Platform. It depends on scenario of the description if the model would contain none, one or more instances of tosca.nodes.Compute.EdgeNode or tosca.nodes.Compute.PublicCloud. 
 ## tosca.nodes.Compute.EdgeNode
 
 This entity is able to describe a node/host that resides on Edge. The following table presents the descriptions that can be used in this entity.
@@ -188,12 +188,12 @@ This section includes two examples that use all the above-mentioned properties o
         - host: PublicCloud
 ```
 
-## ACCORDION.Cloud_Framework
+## Platform
 
 This entity is able to describe an orchestrator of a platform capable to deploy and adapt application components on one or more Cloud and Edge clusters. The following tables present the descriptions that can be used in this entity.
 
 ### Dictionary
-ACCORDION.Cloud_Framework has two subsections to describe deployment phase and runtime adaptation of application components.
+Platform has two subsections to describe deployment phase and runtime adaptation of application components.
 
 | Property         | Value Type | Description                                                                                                              |
 |------------------|------------|--------------------------------------------------------------------------------------------------------------------------|
@@ -232,7 +232,7 @@ This section includes one example that uses all the above-mentioned properties o
 
 ```yaml
     Cloud_Framework:
-      type: ACCORDION.Cloud_Framework
+      type: Platform
       properties:
         application: plexus
         deployment_phase:
