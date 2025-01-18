@@ -6,7 +6,7 @@ def generate(nodelist,application_type):
     dict_template = {}
 
     for x in nodelist:
-        if 'ACCORDION.Cloud_Framework' in x.get_type():
+        if 'Platform' in x.get_type():
             workflows = x.get_workflows()
             for scenario in workflows:
                 actions = scenario.get('actions')

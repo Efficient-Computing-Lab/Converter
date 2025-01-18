@@ -60,7 +60,7 @@ def generate(nodelist, application):
     json_template[application] = []
     nodelist = [i for i in nodelist if i.get_type() != "tosca.nodes.Compute.EdgeNode"]
     nodelist = [i for i in nodelist if i.get_type() != "tosca.nodes.Compute.PublicCloud"]
-    nodelist = [i for i in nodelist if i.get_type() != "ACCORDION.Cloud_Framework"]
+    nodelist = [i for i in nodelist if i.get_type() != "Platform"]
 
     for x in nodelist:
         for y in resourcelist:

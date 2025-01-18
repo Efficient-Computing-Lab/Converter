@@ -14,7 +14,7 @@ topology_template:
 
   node_templates:
     Cloud_Framework:
-      type: ACCORDION.Cloud_Framework
+      type: Platform
       properties:
         application: orbk
         deployment_phase:
