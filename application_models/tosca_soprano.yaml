@@ -3,7 +3,7 @@ tosca_definitions_version: tosca_simple_yaml_1_2
 description: Application model of Soprano Use Case
 
 imports:
-  - definitions/custom_types.yaml
+  - definitions/v2_syntax.yaml
 
 topology_template:
   inputs:
@@ -27,7 +27,7 @@ topology_template:
               - component: AI_model
                 type: container
 
-    EdgeNode:
+    EdgeNode1:
       type: tosca.nodes.Compute.EdgeNode
       properties:
         gpu_model:
@@ -45,6 +45,51 @@ topology_template:
             architecture: x86_64
             type: linux
 
+    EdgeNode2:
+      type: tosca.nodes.Compute.EdgeNode
+      properties:
+        gpu_model:
+          properties:
+            model: nvidia.com/TU117_GEFORCE_GTX_1650
+            dedicated: true
+      capabilities:
+        host:
+          properties:
+            num_cpus: 1
+            mem_size: 512 MB
+            disk_size: 20 GB
+        os:
+          properties:
+            architecture: x86_64
+            type: linux
+
+
+    EdgeNode3:
+      type: tosca.nodes.Compute.EdgeNode
+      properties:
+        gpu_model:
+          properties:
+            model: nvidia.com/TU117_GEFORCE_GTX_1650
+            dedicated: true
+      capabilities:
+        host:
+          properties:
+            num_cpus: 1
+            mem_size: 512 MB
+            disk_size: 20 GB
+        os:
+          properties:
+            architecture: x86_64
+            type: linux
+
+    Cluster:
+      type: tosca.nodes.Compute.Cluster
+      properties:
+        cluster_size: 3
+        members: [EdgeNode1, EdgeNode2, EdgeNode3]
+        total_num_cpus: 3
+        total_mem_size: 1.5 GB
+        total_disk_size: 60 GB
 
 
     AI_model:
@@ -66,10 +111,7 @@ topology_template:
           - port: 20765
             protocol: UDP
       requirements:
-        - host: EdgeNode
-
-
-
+        - host: Cluster
 
 
 

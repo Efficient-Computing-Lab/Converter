@@ -1,7 +1,5 @@
 tosca_definitions_version: tosca_simple_yaml_1_2
-description: CEAML node types
-
-
+description: CEAML v2 syntax
 
 
 data_types:
@@ -196,6 +194,22 @@ node_types:
   #a host that is placed on Cloud. There should be one PublicCloud object for application component that should placed on Cloud.
   tosca.nodes.Compute.PublicCloud:
     derived_from: tosca.nodes.Compute
+
+  tosca.nodes.Compute.Cluster:
+    derived_from: tosca.nodes.Compute
+    properties:
+      cluster_size:
+        type: integer
+        description: Number of nodes in the cluster
+      members:
+        type: list
+        description: List of nodes in the cluster
+      total_num_cpus:
+        type: integer
+      total_mem_size:
+        type: string
+      total_disk_size:
+        type: string
 
   #ACCORDION.Cloud_Framework describes the ACCORDION Platform and how it should orchestrate and adapt an application.
   Platform:

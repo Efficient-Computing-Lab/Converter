@@ -4,7 +4,7 @@ description: Application model of PLEXUS Use Case
 
 
 imports:
-  - definitions/custom_types.yaml
+  - definitions/v1_syntax.yaml
 
 topology_template:
   inputs:
