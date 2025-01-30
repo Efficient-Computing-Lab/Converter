@@ -70,15 +70,15 @@ def selector(name):
     if name == 'plexus':
         token_name = "token_name"
         token_pass = "password"
-        file_path = 'application_models/tosca_plexus.yaml'
+        file_path = 'application_models/v1/tosca_plexus.yaml'
     if name == 'orbk':
         token_name = "token_name"
         token_pass = "password"
-        file_path = 'application_models/tosca_orbk.yaml'
+        file_path = 'application_models/v1/tosca_orbk.yaml'
     if name == 'ovr':
         token_name = "token_name"
         token_pass = "password"
-        file_path = 'application_models/tosca_ovr.yaml'
+        file_path = 'application_models/v1/tosca_ovr.yaml'
     sample_string = token_name + ":" + token_pass
     sample_string_bytes = sample_string.encode("ascii")
     base64_bytes = base64.b64encode(sample_string_bytes)

@@ -453,5 +453,5 @@ topology_template:
         - host: Cluster
 ```
 ## Complete Examples
-To view complete examples of CEAML, you can check [tosca_orbk.yaml](tosca_orbk.yaml), [tosca_ovr.yaml](tosca_ovr.yaml), [tosca_plexus.yaml](tosca_plexus.yaml) and [tosca_soprano.yaml](tosca_soprano.yaml). We also advise using [Sommelier](https://github.com/di-unipi-socc/Sommelier) to check the validity of our models.
-Sommelier requires the definition of extended TOSCA entities to perform validation in TOSCA extensions. Definition file can be found [here](definitions/v2_syntax.yaml).
+To view complete examples of CEAML, you can check [tosca_orbk.yaml](v1/tosca_orbk.yaml), [tosca_ovr.yaml](v1/tosca_ovr.yaml), [tosca_plexus.yaml](v1/tosca_plexus.yaml) and [tosca_soprano.yaml](tosca_soprano.yaml). We also advise using [Sommelier](https://github.com/di-unipi-socc/Sommelier) to check the validity of our models.
+Sommelier requires the definition of extended TOSCA entities to perform validation in TOSCA extensions. Definition file can be found [here](v1/definitions/v2_syntax.yaml).
