@@ -1,4 +1,4 @@
-# CEAML
+# CEAML V2 syntax
 
 CEAML is an extension of [TOSCA](https://docs.oasis-open.org/tosca/TOSCA-Simple-Profile-YAML/v1.3/TOSCA-Simple-Profile-YAML-v1.3.html) capable to describe deployment and runtime adaptation for platforms that utilize both Cloud and Edge resources. It supports four entities:
 
@@ -6,7 +6,8 @@ CEAML is an extension of [TOSCA](https://docs.oasis-open.org/tosca/TOSCA-Simple-
 2. [tosca.nodes.Compute.PublicCloud](#toscanodescomputepubliccloud)
 3. [Component](#component)
 4. [Platform](#platform)
-5. [Complete Examples](#complete-examples)
+5. [tosca.nodes.Compute.Cluster](#toscanodescomputecluster)
+6. [Complete Examples](#complete-examples)
 
 In a model writen in CEAML it is required to have one or more instances for Component and on instance of Platform. It depends on scenario of the description if the model would contain none, one or more instances of tosca.nodes.Compute.EdgeNode or tosca.nodes.Compute.PublicCloud. 
 ## tosca.nodes.Compute.EdgeNode
@@ -226,7 +227,6 @@ As it was mentioned earlier in the workflows actions should be performed under c
 | actions   | list       | It comprises a set of actions aimed at ensuring a high QoE                             |
 
 
-
 ### Examples
 This section includes one example that uses all the above-mentioned properties of the entity.
 
@@ -320,7 +320,138 @@ This section includes one example that uses all the above-mentioned properties o
                 order: 2
 
 ```
+## tosca.nodes.Compute.Cluster
+This entity describes a cluster that may include EdgeNode instances or PublicCloud instances.
+An instance of tosca.nodes.Compute.Cluster could potentially be used to describe the deployment-targeted cluster or even serve as a resource indexing model.
 
+### Dictionary
+| Property        | Value Type | Description                                                                                                                                                                                              |
+|-----------------|------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| cluster_size    | integer    | Number of nodes in the cluster                                                                                                                                                                           |        
+| members         | list       | List of nodes in the cluster                                                                                                                                                                             |
+| total_num_cpus  | integer    | The total CPU count of the cluster                                                                                                                                                                       |
+| total_mem_size  | string     | The total memory capacity of the cluster                                                                                                                                                                 | 
+| total_disk_size | string     | The total disk capacity of the cluster                                                                                                                                                                   |
+
+### Examples
+This section includes one example that uses all the above-mentioned properties of the entity.
+
+```yaml
+tosca_definitions_version: tosca_simple_yaml_1_2
+
+description: Application model of Soprano Use Case
+
+imports:
+  - definitions/v2_syntax.yaml
+
+topology_template:
+  inputs:
+    ip:
+      type: string
+      description: IP of containers
+      required: false
+
+  node_templates:
+    Cloud_Framework:
+      type: Platform
+      properties:
+        application: epos
+        optimizations:
+          - model: epos
+            objective: GPU
+        deployment_phase:
+          - name: deploy
+            order: 1
+            components:
+              - component: AI_model
+                type: container
+
+    EdgeNode1:
+      type: tosca.nodes.Compute.EdgeNode
+      properties:
+        gpu_model:
+          properties:
+            model: nvidia.com/TU117_GEFORCE_GTX_1650
+            dedicated: true
+      capabilities:
+        host:
+          properties:
+            num_cpus: 1
+            mem_size: 512 MB
+            disk_size: 20 GB
+        os:
+          properties:
+            architecture: x86_64
+            type: linux
+
+    EdgeNode2:
+      type: tosca.nodes.Compute.EdgeNode
+      properties:
+        gpu_model:
+          properties:
+            model: nvidia.com/TU117_GEFORCE_GTX_1650
+            dedicated: true
+      capabilities:
+        host:
+          properties:
+            num_cpus: 1
+            mem_size: 512 MB
+            disk_size: 20 GB
+        os:
+          properties:
+            architecture: x86_64
+            type: linux
+
+
+    EdgeNode3:
+      type: tosca.nodes.Compute.EdgeNode
+      properties:
+        gpu_model:
+          properties:
+            model: nvidia.com/TU117_GEFORCE_GTX_1650
+            dedicated: true
+      capabilities:
+        host:
+          properties:
+            num_cpus: 1
+            mem_size: 512 MB
+            disk_size: 20 GB
+        os:
+          properties:
+            architecture: x86_64
+            type: linux
+
+    Cluster:
+      type: tosca.nodes.Compute.Cluster
+      properties:
+        cluster_size: 3
+        members: [EdgeNode1, EdgeNode2, EdgeNode3]
+        total_num_cpus: 3
+        total_mem_size: 1.5 GB
+        total_disk_size: 60 GB
+
+
+    AI_model:
+      type: Component
+      properties:
+        registry:
+          properties:
+            image: gkorod/topo:v2.0
+            type: public
+        name: epos
+        application: epos
+        external_ip: true
+        daemon_set: false
+        instance: 1
+        deployment_unit: container
+        ip: {get_input: ip}
+        storage_type: none
+        ports:
+          - port: 20765
+            protocol: UDP
+      requirements:
+        - host: Cluster
+```
 ## Complete Examples
-To view complete examples of CEAML, you can check [tosca_orbk.yaml](tosca_orbk.yaml), [tosca_ovr.yaml](tosca_ovr.yaml), and [tosca_plexus.yaml](tosca_plexus.yaml). We also advise using [Sommelier](https://github.com/di-unipi-socc/Sommelier) to check the validity of our models.
-Sommelier requires the definition of extended TOSCA entities to perform validation in TOSCA extensions. Definition file can be found [here](definitions/v1_syntax.yaml).
+To view complete examples of CEAML, you can check [tosca_orbk.yaml](tosca_orbk.yaml), [tosca_ovr.yaml](tosca_ovr.yaml), [tosca_plexus.yaml](tosca_plexus.yaml) and [tosca_soprano.yaml](tosca_soprano.yaml). We also advise using [Sommelier](https://github.com/di-unipi-socc/Sommelier) to check the validity of our models.
+Sommelier requires the definition of extended TOSCA entities to perform validation in TOSCA extensions. Definition file can be found [here](definitions/v2_syntax.yaml).
