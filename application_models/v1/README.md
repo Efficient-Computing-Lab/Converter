@@ -322,5 +322,5 @@ This section includes one example that uses all the above-mentioned properties o
 ```
 
 ## Complete Examples
-To view complete examples of CEAML, you can check [tosca_orbk.yaml](tosca_orbk.yaml), [tosca_ovr.yaml](tosca_ovr.yaml), and [tosca_plexus.yaml](tosca_plexus.yaml). We also advise using [Sommelier](https://github.com/di-unipi-socc/Sommelier) to check the validity of our models.
+To view complete examples of CEAML V1 syntax, you can check [tosca_orbk.yaml](tosca_orbk.yaml), [tosca_ovr.yaml](tosca_ovr.yaml), and [tosca_plexus.yaml](tosca_plexus.yaml). We also advise using [Sommelier](https://github.com/di-unipi-socc/Sommelier) to check the validity of our models.
 Sommelier requires the definition of extended TOSCA entities to perform validation in TOSCA extensions. Definition file can be found [here](definitions/v1_syntax.yaml).
