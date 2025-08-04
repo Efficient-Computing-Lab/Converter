@@ -13,6 +13,6 @@ setup(name='converter_package',
       long_description=long_description,
       long_description_content_type='text/markdown',
       install_requires=[
-          'pyyaml==5.3.1', 'hurry.filesize==0.9', 'oyaml==1.0'
+          'pyyaml==5.4', 'hurry.filesize==0.9', 'oyaml==1.0'
       ],
       zip_safe=False)
