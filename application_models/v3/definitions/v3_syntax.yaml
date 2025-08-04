@@ -5,6 +5,18 @@ description: CEAML v1 syntax
 
 
 data_types:
+  queues:
+    properties:
+      input_queue:
+        type: string
+        required: false
+      output_queue:
+        type: string
+        required: false
+  dependency_structure:
+    properties:
+      operator_name:
+        type: string
   optimizations:
     properties:
       model:
@@ -231,6 +243,11 @@ node_types:
   Component:
     derived_from: tosca.nodes.SoftwareComponent
     properties:
+      dependencies:
+        type: list
+        required: false
+        entry_schema:
+          type: dependency_structure
       registry:
         type: map
         required: true
@@ -290,6 +307,11 @@ node_types:
         entry_schema:
             type: dependent
         required: false
+      queues:
+        type: map
+        required: true
+        entry_schema:
+          type: queues
 
 
 

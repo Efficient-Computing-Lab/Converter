@@ -213,7 +213,7 @@ node_types:
 
   #ACCORDION.Cloud_Framework describes the ACCORDION Platform and how it should orchestrate and adapt an application.
   Platform:
-    derived_from: tosca.nodes.Container.Application.Docker
+    derived_from: tosca.nodes.Root
     properties:
       #application property describes that ACCORDION should perform actions for this specific applications
       application:
